@@ -1,5 +1,6 @@
 from dotenv import load_dotenv
 import aisuite as ai
+import json
 
 load_dotenv()          # reads GROQ_API_KEY from .env
 client = ai.Client()
