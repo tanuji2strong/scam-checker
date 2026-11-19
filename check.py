@@ -32,6 +32,6 @@ def judge(message):
 
 
 
-    return {"risk":risk,"scam_ type":best_type, "red_flags": red_flags}
+    return {"risk":risk,"scam_type":best_type, "red_flags": red_flags}
 x = input('')
 print(judge(x))
