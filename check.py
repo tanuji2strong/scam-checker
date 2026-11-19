@@ -1,5 +1,5 @@
 #老師帶你投資飆股，保證獲利，快加LINE群組
-def judge(message):
+def judge_keywords(message):
     
 
     red_flags=[]
@@ -34,4 +34,4 @@ def judge(message):
 
     return {"risk":risk,"scam_type":best_type, "red_flags": red_flags}
 x = input('')
-print(judge(x))
+print(judge_keywords(x))
