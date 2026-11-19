@@ -1,3 +1,4 @@
+#老師帶你投資飆股，保證獲利，快加LINE群組
 def judge(message):
     
 
@@ -11,10 +12,21 @@ def judge(message):
         "phishing":        ["點擊連結", "帳號異常", "立即驗證", "驗證碼", "http", "停用"],
         "prize":           ["中獎", "領獎", "手續費", "恭喜"],
     }
+    best_type=None
+    best_score=0
     for i,j in KEYWORDS.items():
+        score=0
         for k in j:
             if k in message:
                 red_flags.append(k)
-    return red_flags
+                score+=1
+        if(best_score<score):
+            best_score=score
+            best_type=i
+
+
+
+
+    return best_type, red_flags
 x = input('')
 print(judge(x))
