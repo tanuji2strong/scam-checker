@@ -14,6 +14,7 @@ def judge(message):
     }
     best_type=None
     best_score=0
+
     for i,j in KEYWORDS.items():
         score=0
         for k in j:
@@ -23,10 +24,14 @@ def judge(message):
         if(best_score<score):
             best_score=score
             best_type=i
+    if len(red_flags)>=3:
+        risk="high"
+    elif len(red_flags)>=1:
+        risk="medium"
+    else: risk="low"
 
 
 
-
-    return best_type, red_flags
+    return {"risk":risk,"scam_ type":best_type, "red_flags": red_flags}
 x = input('')
 print(judge(x))
