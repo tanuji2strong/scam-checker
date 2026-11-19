@@ -92,9 +92,6 @@ def judge_llm(message):
     return json.loads(response.choices[0].message.content)
 
 
-#x = input('')
-#print(judge_keywords(x))
-#print(judge_llm(x))
-result = judge_llm(TESTS[0])
-print(type(result))
-print(result["risk"])
+for i in range(len(TESTS)):
+    print(judge_keywords(TESTS[i]))
+    print(judge_llm(TESTS[i]))
