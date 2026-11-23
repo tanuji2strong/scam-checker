@@ -78,7 +78,7 @@ def judge_keywords(message):
         risk="medium"
     else: risk="low"
 
-    return {"risk":risk,"scam_type":best_type, "red_flags": red_flags}
+    return {"judge":"keyword","risk":risk,"scam_type":best_type, "red_flags": red_flags}
 
 def judge_llm(message):
     try:
@@ -91,7 +91,9 @@ def judge_llm(message):
             
         ],
         )
-        return json.loads(response.choices[0].message.content)
+        result = json.loads(response.choices[0].message.content)
+        result["judge"] = "llm"
+        return result
     except Exception as e: 
         print("LLM model is broken, using keywords:", e)
         return judge_keywords(message)
