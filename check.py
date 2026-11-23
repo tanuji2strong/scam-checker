@@ -61,7 +61,7 @@ Reply: {"risk": "low", "scam_type": "none", "red_flags": []}
 def judge_keywords(message):
 
     red_flags=[]
-    best_type=None
+    best_type='none'
     best_score=0
     for i,j in KEYWORDS.items():
         score=0
@@ -81,15 +81,20 @@ def judge_keywords(message):
     return {"risk":risk,"scam_type":best_type, "red_flags": red_flags}
 
 def judge_llm(message):
-    response = client.chat.completions.create(
-    model="groq:qwen/qwen3.8-27b",
-    messages=[
-        {"role": "system", "content": SYSTEM_PROMPT}  ,  
-        {"role": "user", "content": message },
-        
-    ],
-    )
-    return json.loads(response.choices[0].message.content)
+    try:
+        response = client.chat.completions.create(
+        temperature=0,
+        model="groq:qwen/qwen3.8-27b",
+        messages=[
+            {"role": "system", "content": SYSTEM_PROMPT}  ,  
+            {"role": "user", "content": message },
+            
+        ],
+        )
+        return json.loads(response.choices[0].message.content)
+    except Exception as e: 
+        print("LLM model is broken, using keywords:", e)
+        return judge_keywords(message)
 
 
 for i in range(len(TESTS)):
