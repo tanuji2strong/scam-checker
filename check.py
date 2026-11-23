@@ -1,9 +1,14 @@
 from dotenv import load_dotenv
+from db import save_check
 import aisuite as ai
 import json
+
 #老師帶你投資飆股，保證獲利，快加LINE群組
-load_dotenv()   
+
 client = ai.Client()
+
+
+
 KEYWORDS = {
         "fake_investment": ["投資", "保證獲利", "穩賺", "飆股", "老師", "帶單", "加LINE", "群組", "高報酬"],
         "fake_shopping":   ["解除分期", "重複扣款", "ATM", "客服", "訂單錯誤", "退款"],
@@ -24,6 +29,8 @@ TESTS = [
     "我爸最近在研究投資ETF",
     "恭喜！您的帳號異常，請洽客服",
 ]
+
+
 SYSTEM_PROMPT = """You check Chinese text messages for scams, based on common scam types in Taiwan.
 
 Reply with one JSON object only. No explanation, no markdown, no code fences.
@@ -86,15 +93,15 @@ def judge_llm(message):
         temperature=0,
         model="groq:qwen/qwen3.8-27b",
         messages=[
-            {"role": "system", "content": SYSTEM_PROMPT}  ,  
+            {"role": "system", "content": SYSTEM_PROMPT}  ,
             {"role": "user", "content": message },
-            
+
         ],
         )
         result = json.loads(response.choices[0].message.content)
         result["judge"] = "llm"
         return result
-    except Exception as e: 
+    except Exception as e:
         print("LLM model is broken, using keywords:", e)
         return judge_keywords(message)
 
