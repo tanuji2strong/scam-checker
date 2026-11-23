@@ -1,0 +1,3 @@
+aisuite[groq]
+python-dotenv
+mysql-connector-python
