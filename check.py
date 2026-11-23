@@ -107,5 +107,6 @@ def judge_llm(message):
 
 
 for i in range(len(TESTS)):
+    result = judge_llm(TESTS[i])
     print(judge_keywords(TESTS[i]))
-    print(judge_llm(TESTS[i]))
+    print(save_check(TESTS[i],result), result )
